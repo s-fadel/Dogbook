@@ -56,7 +56,7 @@ p {
 
 }
 
-.form-create-dog input {
+.form-create-dog>input {
   width: 20rem;
   margin: 0rem 0rem 0.5rem 0rem;
   display: flex;
@@ -87,6 +87,23 @@ p {
   display: flex;
   flex-direction: column;
   padding-left: 4rem;
+}
+
+.availible-dogs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.availible-dogs p {
+  font-size: small;
+}
+
+
+#present>input{
+  width: 1rem;
+height: 1rem;
+margin: 0;
+padding: 0;
 }
 
 /* START PAGE */

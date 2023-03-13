@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const Create = ({ setView, setDogs, dogs }) => {
+const Create = ({ setView, setDogs, dog }) => {
   const [randomDog, setDogImg] = useState("");
   const [trigger, setTrigger] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [dogsList, setDogsList] = useState([]);
 
   const fetchDog = async () => {
     setIsLoading(true);
@@ -17,6 +18,21 @@ const Create = ({ setView, setDogs, dogs }) => {
   useEffect(() => {
     fetchDog();
   }, [trigger]);
+
+  const togglePresent = (id) => {
+    const updatedDogsList = dogsList.map((dog) => {
+      // renamed 'dogs' to 'dogsList'
+      if (dog.id === id) {
+        dog.present = !dog.present;
+      }
+      return dog;
+    });
+    setDogsList(updatedDogsList);
+  };
+
+  const getTextDecor = (present) => {
+    return present ? "line-through" : "red";
+  };
 
   const saveDog = (event) => {
     event.preventDefault();
@@ -44,6 +60,15 @@ const Create = ({ setView, setDogs, dogs }) => {
           <input placeholder="Nickname..." id="nickname" type="text"></input>
           <input placeholder="Age..." id="age" type="number"></input>
           <input placeholder="Bio..." id="bio" type="text"></input>
+          <div className="availible-dogs">
+            <p>PRESENT</p>
+            <input
+              type="checkbox"
+              id="present"
+              checked={dogsList.present}
+              onChange={() => togglePresent(dogsList.id)}
+            />
+          </div>
           <button id="save" type="submit">
             Save
           </button>
