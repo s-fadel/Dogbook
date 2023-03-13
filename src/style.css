@@ -1,0 +1,82 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0rem 7rem;
+}
+
+p {
+  margin: 0.8rem 0rem;
+
+}
+
+.dog-school {
+  margin-top: 6rem;
+}
+
+.dog-school h1 p {
+  text-align: center;
+}
+
+.create-new-member {
+  padding: 20px;
+  background-color: rgb(218, 216, 214);
+  text-align: center;
+}
+
+.dog-list {
+  padding-bottom: 2rem;
+}
+
+.create-new-member p {
+  margin: 0rem 0rem 0.5rem 0rem;
+}
+
+/* CREATE - FORM */
+.title-new-member {
+  background-color: rgb(218, 216, 214);
+  text-align: center;
+  margin: 0;
+  margin-bottom: 4rem;
+  padding: 2rem;
+
+}
+
+.form-create-dog input {
+  width: 20rem;
+  margin: 0rem 0rem 0.5rem 0rem;
+  display: flex;
+  flex-direction: column;
+}
+
+#back {
+  width: 6rem;
+  margin: 0rem 0.5rem;
+}
+
+#save {
+  width: 6rem;
+}
+
+#change {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-daycare {
+  display: flex;
+  flex-direction: row;
+}
+
+.img-create-dog {
+  display: flex;
+  flex-direction: column;
+  padding-left: 4rem;
+}
