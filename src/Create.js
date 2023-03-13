@@ -20,16 +20,18 @@ const Create = ({ setView, setDogs, dogs }) => {
 
   const saveDog = (event) => {
     event.preventDefault();
-    setView("HOME");
     const img = randomDog;
     const nickname = event.target.nickname.value;
     const name = event.target.name.value;
     const age = event.target.age.value;
     const bio = event.target.bio.value;
-    setDogs((prev) => [...prev, { img, nickname, name, age, bio, id: uuidv4() }]);
+    setDogs((prev) => [
+      ...prev,
+      { img, nickname, name, age, bio, id: uuidv4() },
+    ]);
     setDogImg(""); // clear the current dog image
     event.target.reset(); // reset the form fields to their initial values
-    setView("home"); // change the view to "home" (or a more descriptive name)
+    setView("HOME");
   };
 
   return (
@@ -37,7 +39,7 @@ const Create = ({ setView, setDogs, dogs }) => {
       <h1 className="title-new-member">DOG SCHOOL🐶🏫</h1>
       <h4>ADD NEW DOG MEMBER👩🏻‍💻✅</h4>
       <div className="form-daycare">
-        <form className="form-create-dog" onSubmit={(event) => saveDog(event)}>
+        <form className="form-create-dog" onSubmit={saveDog}>
           <input placeholder="Name..." id="name" type="text"></input>
           <input placeholder="Nickname..." id="nickname" type="text"></input>
           <input placeholder="Age..." id="age" type="number"></input>
@@ -45,19 +47,19 @@ const Create = ({ setView, setDogs, dogs }) => {
           <button id="save" type="submit">
             Save
           </button>
-          <button id="back" type="submit">
+          <button id="back" onClick={() => setView("HOME")}>
             Back
           </button>
         </form>
         <div className="img-create-dog">
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <img src={randomDog} alt="" width="220px" height="220px" />
-        )}
-        <button onClick={fetchDog} id="change">
-          Change 📸
-        </button>
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <img src={randomDog} alt="" width="220px" height="220px" />
+          )}
+          <button onClick={fetchDog} id="change">
+            Change 📸
+          </button>
         </div>
       </div>
     </div>

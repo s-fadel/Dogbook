@@ -80,3 +80,16 @@ p {
   flex-direction: column;
   padding-left: 4rem;
 }
+
+/* START PAGE */
+
+.dog-container {
+  display: flex;
+}
+.delete-button {
+  margin-left: 0.5rem;
+}
+
+.dog-nickname {
+  min-width: 8rem;
+}
