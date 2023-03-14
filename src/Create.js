@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const Create = ({ setView, setDogs, dog }) => {
-  const [randomDog, setDogImg] = useState("");
-  const [trigger, setTrigger] = useState(0);
+  const [randomDogImg, setDogImg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [dogsList, setDogsList] = useState([]);
+  const [presentVal, setPresentVal] = useState(false);
 
   const fetchDog = async () => {
     setIsLoading(true);
@@ -17,33 +16,20 @@ const Create = ({ setView, setDogs, dog }) => {
 
   useEffect(() => {
     fetchDog();
-  }, [trigger]);
+  }, []); // Anropa fetchDog när sidan laddas in när [] är tom.
 
-  const togglePresent = (id) => {
-    const updatedDogsList = dogsList.map((dog) => {
-      // renamed 'dogs' to 'dogsList'
-      if (dog.id === id) {
-        dog.present = !dog.present;
-      }
-      return dog;
-    });
-    setDogsList(updatedDogsList);
-  };
-
-  const getTextDecor = (present) => {
-    return present ? "line-through" : "red";
-  };
 
   const saveDog = (event) => {
     event.preventDefault();
-    const img = randomDog;
+    const img = randomDogImg;
     const nickname = event.target.nickname.value;
     const name = event.target.name.value;
     const age = event.target.age.value;
     const bio = event.target.bio.value;
+    const present = presentVal;
     setDogs((prev) => [
       ...prev,
-      { img, nickname, name, age, bio, id: uuidv4() },
+      { img, nickname, name, age, bio, present, id: uuidv4() },
     ]);
     setDogImg(""); // clear the current dog image
     event.target.reset(); // reset the form fields to their initial values
@@ -57,7 +43,7 @@ const Create = ({ setView, setDogs, dog }) => {
       <div className="form-daycare">
         <form className="form-create-dog" onSubmit={saveDog}>
           <input placeholder="Name..." id="name" type="text"></input>
-          <input placeholder="Nickname..." id="nickname" type="text"></input>
+          <input required placeholder="Nickname..." id="nickname" type="text"></input>
           <input placeholder="Age..." id="age" type="number"></input>
           <input placeholder="Bio..." id="bio" type="text"></input>
           <div className="availible-dogs">
@@ -65,8 +51,8 @@ const Create = ({ setView, setDogs, dog }) => {
             <input
               type="checkbox"
               id="present"
-              checked={dogsList.present}
-              onChange={() => togglePresent(dogsList.id)}
+              checked={presentVal}
+              onChange={() => setPresentVal((prevCheck) => !prevCheck)}
             />
           </div>
           <button id="save" type="submit">
@@ -80,7 +66,7 @@ const Create = ({ setView, setDogs, dog }) => {
           {isLoading ? (
             <p>Loading...</p>
           ) : (
-            <img src={randomDog} alt="" width="220px" height="220px" />
+            <img src={randomDogImg} alt="" width="220px" height="220px" />
           )}
           <button onClick={fetchDog} id="change">
             Change 📸

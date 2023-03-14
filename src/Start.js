@@ -2,7 +2,7 @@ const Start = ({ setView, dogs, setDogs }) => {
   const handleDelete = (id) => {
     const newDogs = dogs.filter((dog) => dog.id !== id);
     setDogs(newDogs);
-  }
+  };
 
   return (
     <div className="dog-school">
@@ -12,7 +12,15 @@ const Start = ({ setView, dogs, setDogs }) => {
         <h4>DOGS OF THE DAY: {dogs.length}</h4>
         {dogs.map((dog) => (
           <div className="dog-container" key={dog.id}>
-            <span className="dog-nickname">{dog.nickname}</span>
+            <span
+              className={`${
+                dog.present
+                  ? "dog-nickname dog-nickname-present"
+                  : "dog-nickname dog-nickname-checked-out"
+              }`}
+            >
+              {dog.nickname}
+            </span>
             <button
               className="delete-button"
               onClick={() => handleDelete(dog.id)}

@@ -126,3 +126,11 @@ padding: 0;
 .dog-nickname {
   min-width: 9rem;
 }
+
+.dog-nickname-present {
+  color: green;
+}
+
+.dog-nickname-checked-out {
+  color: red;
+}
