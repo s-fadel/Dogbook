@@ -2,18 +2,20 @@ import "./style.css";
 import { useState, useEffect } from "react";
 import Start from "./Start";
 import Create from "./Create";
+import Edit from "./Edit";
+import Profile from "./Profile";
 
 const App = () => {
   const localStorageKey = "schoolDogs";
 
   const savedDogs = JSON.parse(localStorage.getItem(localStorageKey));
-  console.log(savedDogs);
   const [view, setView] = useState("HOME");
   const [dogs, setDogs] = useState(savedDogs || []);
-  const [dog, setDog] = useState({});
-  const [edit, setEdit] = useState({});
+  const [selectedDog, setSelectedDog] = useState({});
 
-  useEffect(() => {
+
+
+ /*  useEffect(() => {
     if (dog.id) {
       const newDogs = dogs.map((d) => {
         if (d.id === dog.id) {
@@ -22,7 +24,7 @@ const App = () => {
       });
       setDogs(newDogs);
     }
-  }, [dog]);
+  }, [dog]); */
 
   useEffect(() => {
     localStorage.setItem(localStorageKey, JSON.stringify(dogs));
@@ -30,11 +32,13 @@ const App = () => {
 
   switch (view) {
     case "HOME":
-      return <Start setView={setView} dogs={dogs} setDogs={setDogs} />;
-    /* case "DOG":
-    return <Dog setView={setView} dog={dog} />
-  case "EDIT":
-    return <EditDog setView={setView} setEdit={setEdit} dog={dog} setDog={setDog} /> */
+      return <Start setView={setView} dogs={dogs} setDogs={setDogs} setSelectedDog={setSelectedDog} />;
+    case "PROFILE":
+      return <Profile setView={setView} selectedDog={selectedDog} />;
+    case "EDIT":
+      return (
+        <Edit setView={setView} selectedDog={selectedDog} dogs={dogs} setDogs={setDogs}/>
+      );
     default:
       return <Create setView={setView} setDogs={setDogs} dogs={dogs} />;
   }
