@@ -16,6 +16,28 @@ p {
 
 }
 
+span {
+  text-decoration: underline;
+}
+
+#back,
+#change {
+  background-color: rgb(97, 189, 148);
+  color: white;
+  padding: 0.5rem 2rem;
+  border-style: none;
+  font-weight: 500;
+}
+
+#edit,
+#save {
+  background-color: rgb(67, 156, 116);
+  color: white;
+  border-style: none;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}
+
 .dog-school {
   margin-top: 6rem;
 }
@@ -37,6 +59,7 @@ p {
 
 .create-new-member p {
   margin: 0rem 0rem 0.5rem 0rem;
+  font-weight: 500;
 }
 
 #add-dog {
@@ -63,15 +86,6 @@ p {
   flex-direction: column;
 }
 
-#back {
-  width: 6rem;
-  margin: 0rem 0.5rem;
-}
-
-#save {
-  width: 6rem;
-}
-
 #change {
   display: flex;
   flex-direction: column;
@@ -94,16 +108,17 @@ p {
   flex-direction: row;
   align-items: center;
 }
+
 .availible-dogs p {
   font-size: small;
 }
 
 
-#present>input{
+#present>input {
   width: 1rem;
-height: 1rem;
-margin: 0;
-padding: 0;
+  height: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 /* START PAGE */
@@ -113,14 +128,14 @@ padding: 0;
 }
 
 .delete-button {
-     margin: 0.2rem;
-     padding: 0rem 0.2rem;
-     width: 3%;
-     color: white;
-     background-color: rgb(255 255 255);
-     border-style: none;
-     align-content: center;
-     justify-content: center;
+  margin: 0.2rem;
+  padding: 0rem 0.2rem;
+  width: 3%;
+  color: white;
+  background-color: rgb(255 255 255);
+  border-style: none;
+  align-content: center;
+  justify-content: center;
 }
 
 .dog-nickname {
@@ -133,4 +148,18 @@ padding: 0;
 
 .dog-nickname-checked-out {
   color: red;
+}
+
+/* PROFILE */
+strong {
+  font-weight: 600;
+}
+
+.title-dog-profile {
+  background-color: rgb(97, 189, 148);
+  color: white;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 4rem;
+  padding: 2rem;
 }
