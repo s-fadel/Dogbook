@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
-  const { name, nickname, age, bio, img, present, id } = selectedDog;
+  const { name, nickname, age, bio, img, present, friends, id } = selectedDog;
   const [presentVal, setPresentVal] = useState(present);
   const editDog = (event) => {
     event.preventDefault();
@@ -10,7 +10,7 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
     const age = event.target.age.value;
     const bio = event.target.bio.value;
     const present = presentVal;
-    const updatedDog = {name, nickname, age, bio, present}
+    const updatedDog = {name, nickname, age, bio, present, friends}
     const updatedDogs = dogs.map(dog => dog.id === id ? { ...dog, ...updatedDog}: dog);
     setDogs(updatedDogs);
     event.target.reset(); // reset the form fields to their initial values
