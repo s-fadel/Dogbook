@@ -13,19 +13,6 @@ const App = () => {
   const [dogs, setDogs] = useState(savedDogs || []);
   const [selectedDog, setSelectedDog] = useState({});
 
-
-
- /*  useEffect(() => {
-    if (dog.id) {
-      const newDogs = dogs.map((d) => {
-        if (d.id === dog.id) {
-          return dog;
-        }
-      });
-      setDogs(newDogs);
-    }
-  }, [dog]); */
-
   useEffect(() => {
     localStorage.setItem(localStorageKey, JSON.stringify(dogs));
   }, [dogs]);

@@ -20,6 +20,8 @@ span {
   text-decoration: underline;
 }
 
+
+
 #back,
 #change {
   background-color: rgb(97, 189, 148);
@@ -121,10 +123,31 @@ span {
   padding: 0;
 }
 
+.friends-dog h5 {
+  margin: 0.5rem 0rem;
+}
+
+.friends-dog select {
+  margin-bottom: 0.5rem;
+  font-size: small;
+}
+
+.friends-dog ul {
+  margin: 0.5rem 0rem 1rem 0rem;
+  list-style: none;
+  padding-left: 0;
+  text-decoration: underline;
+
+}
+
+.friends-dog {
+cursor: pointer;
+}
 /* START PAGE */
 
 .dog-container {
   display: flex;
+  cursor: pointer;
 }
 
 .delete-button {
