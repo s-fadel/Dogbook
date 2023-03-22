@@ -12,8 +12,8 @@ const Profile = ({ setView, selectedDog }) => {
       <p><strong>Bio:</strong> {selectedDog.bio}</p>
       <strong>Friends:{selectedDog.friends.length > 0 ? (
               <ul>
-                {selectedDog.friends.map((selectedDog) => (
-                  <li key={selectedDog.id}>{selectedDog.nickname}</li>
+                {selectedDog.friends.map((friendDog) => (
+                  <li key={friendDog.id}>{friendDog.nickname}</li>
                 ))}
               </ul>
             ) : null}</strong>
