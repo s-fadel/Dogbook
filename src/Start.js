@@ -1,9 +1,16 @@
 const Start = ({ setView, dogs, setDogs, setSelectedDog }) => {
   const handleDelete = (id) => {
-    const newDogs = dogs.filter((dog) => dog.id !== id);
-    setDogs(newDogs);
+    const newDogs = [...dogs];
+   
+    newDogs.forEach((dog) => {
+      if (dog.friends && dog.friends.length) {
+        dog.friends = dog.friends.filter((friend) => friend.id !== id);
+      }
+    });
+    const remainingDogs = newDogs.filter((dog) => dog.id !== id);  
+    setDogs(remainingDogs);
   };
-
+  
   const onDogSelect = (dog) => {
     setSelectedDog(dog);
     setView("PROFILE")

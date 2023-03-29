@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
   const { name, nickname, age, bio, img, present, friends, id } = selectedDog;
   const [presentVal, setPresentVal] = useState(present);
+  const [dogFriends, setDogFriends] = useState(friends);
+
   const editDog = (event) => {
     event.preventDefault();
     const nickname = event.target.nickname.value;
@@ -10,11 +12,26 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
     const age = event.target.age.value;
     const bio = event.target.bio.value;
     const present = presentVal;
+    const friends = dogFriends;
     const updatedDog = {name, nickname, age, bio, present, friends}
+    
     const updatedDogs = dogs.map(dog => dog.id === id ? { ...dog, ...updatedDog}: dog);
     setDogs(updatedDogs);
     event.target.reset(); // reset the form fields to their initial values
     setView("HOME");
+  };
+
+  const selectDogFriend = (event) => {
+    const selectedDogId = event.target.value;
+
+    // do not save dogFriends if they already selected in select option list
+    const dogFriendAlreadyExist = dogFriends.some((dogFriend) => dogFriend.id === selectedDogId);
+    if (!dogFriendAlreadyExist) {
+      // find dog from dogs with the help of selectedDog Id. 
+      const dogFriend = dogs.find((dog) => dog.id === selectedDogId);
+     dogFriend && setDogFriends((prev) => [...prev, { id: selectedDogId, nickname: dogFriend.nickname } ])
+
+    }
   };
 
   return (
@@ -42,6 +59,24 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
               onChange={() => setPresentVal((prevCheck) => !prevCheck)}
             />
           </div>
+          <div className="friends-dog">
+            <h5>Edit a dog friend:</h5>
+            <select id="friend-dog" onChange={(event) => selectDogFriend(event)}>
+            <option>Select a friend</option>
+              {dogs.filter((dog) => dog.id !== id).map((dog) => (
+                <option key={dog.id} value={dog.id}>
+                {dog.nickname}
+                </option>
+              ))}
+            </select>
+            {dogFriends.length > 0 ? (
+              <ul>
+                {dogFriends.map((dogFriend) => (
+                  <li key={dogFriend.id}>{dogFriend.nickname}</li>
+                ))}
+              </ul>
+            ) : null}
+            </div>
           <button id="save" type="submit">
             Save
           </button>
