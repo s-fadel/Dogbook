@@ -24,10 +24,8 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
   const selectDogFriend = (event) => {
     const selectedDogId = event.target.value;
 
-    // do not save dogFriends if they already selected in select option list
     const dogFriendAlreadyExist = dogFriends.some((dogFriend) => dogFriend.id === selectedDogId);
     if (!dogFriendAlreadyExist) {
-      // find dog from dogs with the help of selectedDog Id. 
       const dogFriend = dogs.find((dog) => dog.id === selectedDogId);
      dogFriend && setDogFriends((prev) => [...prev, { id: selectedDogId, nickname: dogFriend.nickname } ])
 

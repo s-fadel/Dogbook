@@ -17,7 +17,7 @@ const Create = ({ setView, setDogs, dog, dogs }) => {
 
   useEffect(() => {
     fetchDog();
-  }, []); // Anropa fetchDog när sidan laddas in när [] är tom.
+  }, []); 
 
   const saveDog = (event) => {
     event.preventDefault();
@@ -32,19 +32,17 @@ const Create = ({ setView, setDogs, dog, dogs }) => {
       ...prev,
       { img, nickname, name, age, bio, present, friends, id: uuidv4() },
     ]);
-    setDogImg(""); // clear the current dog image
-    setDogFriends([]); //reset dog friends
-    event.target.reset(); // reset the form fields to their initial values
+    setDogImg(""); 
+    setDogFriends([]); 
+    event.target.reset(); 
     setView("HOME");
   };
 
   const selectDogFriend = (event) => {
     const selectedDogId = event.target.value;
 
-    // do not save dogFriends if they already selected in select option list
     const dogFriendAlreadyExist = dogFriends.some((dogFriend) => dogFriend.id === selectedDogId);
     if (!dogFriendAlreadyExist) {
-      // find dog from dogs with the help of selectedDog Id. 
       const dogFriend = dogs.find((dog) => dog.id === selectedDogId);
      dogFriend && setDogFriends((prev) => [...prev, { id: selectedDogId, nickname: dogFriend.nickname } ])
 
