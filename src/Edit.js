@@ -12,10 +12,11 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
     const age = event.target.age.value;
     const bio = event.target.bio.value;
     const present = presentVal;
-    const friends = dogFriends;
-    const updatedDog = {name, nickname, age, bio, present, friends}
-    
-    const updatedDogs = dogs.map(dog => dog.id === id ? { ...dog, ...updatedDog}: dog);
+    const updatedDog = { name, nickname, age, bio, present, friends: dogFriends };
+
+    const updatedDogs = dogs.map((dog) =>
+      dog.id === id ? { ...dog, ...updatedDog } : dog
+    );
     setDogs(updatedDogs);
     event.target.reset(); // reset the form fields to their initial values
     setView("HOME");
@@ -24,21 +25,37 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
   const selectDogFriend = (event) => {
     const selectedDogId = event.target.value;
 
-    const dogFriendAlreadyExist = dogFriends.some((dogFriend) => dogFriend.id === selectedDogId);
+    const dogFriendAlreadyExist = dogFriends.some(
+      (dogFriend) => dogFriend.id === selectedDogId
+    );
     if (!dogFriendAlreadyExist) {
       const dogFriend = dogs.find((dog) => dog.id === selectedDogId);
-     dogFriend && setDogFriends((prev) => [...prev, { id: selectedDogId, nickname: dogFriend.nickname } ])
-
+      dogFriend &&
+        setDogFriends((prev) => [
+          ...prev,
+          { id: selectedDogId, nickname: dogFriend.nickname },
+        ]);
     }
   };
 
+  const handleDeleteFriends = (e, id) => {
+    e.preventDefault();
+    const updatedDogFriends = dogFriends.filter((friend) => friend.id !== id);
+    setDogFriends(updatedDogFriends);
+  };
+console.log(dogFriends);
   return (
     <div>
       <h1 className="title-new-member">EDIT DOG PROFILE 📝</h1>
       <h4>UPDATE THE DOG MEMBER 🐩</h4>
       <div className="form-daycare">
         <form className="form-create-dog" onSubmit={editDog}>
-          <input placeholder="Name..." id="name" type="text" defaultValue={name}></input>
+          <input
+            placeholder="Name..."
+            id="name"
+            type="text"
+            defaultValue={name}
+          ></input>
           <input
             required
             placeholder="Nickname..."
@@ -46,8 +63,18 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
             type="text"
             defaultValue={nickname}
           ></input>
-          <input placeholder="Age..." id="age" type="number" defaultValue={age}></input>
-          <input placeholder="Bio..." id="bio" type="text" defaultValue={bio}></input>
+          <input
+            placeholder="Age..."
+            id="age"
+            type="number"
+            defaultValue={age}
+          ></input>
+          <input
+            placeholder="Bio..."
+            id="bio"
+            type="text"
+            defaultValue={bio}
+          ></input>
           <div className="availible-dogs">
             <p>PRESENT</p>
             <input
@@ -59,22 +86,35 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
           </div>
           <div className="friends-dog">
             <h5>Edit a dog friend:</h5>
-            <select id="friend-dog" onChange={(event) => selectDogFriend(event)}>
-            <option>Select a friend</option>
-              {dogs.filter((dog) => dog.id !== id).map((dog) => (
-                <option key={dog.id} value={dog.id}>
-                {dog.nickname}
-                </option>
-              ))}
+            <select
+              id="friend-dog"
+              onChange={(event) => selectDogFriend(event)}
+            >
+              <option>Select a friend</option>
+              {dogs
+                .filter((dog) => dog.id !== id)
+                .map((dog) => (
+                  <option key={dog.id} value={dog.id}>
+                    {dog.nickname}
+                  </option>
+                ))}
             </select>
             {dogFriends.length > 0 ? (
               <ul>
                 {dogFriends.map((dogFriend) => (
-                  <li key={dogFriend.id}>{dogFriend.nickname}</li>
+                  <div className="dog-container" key={dogFriend.id}>
+                    <li key={dogFriend.id}>{dogFriend.nickname}</li>
+                    <button
+                      className="delete-button"
+                      onClick={(e) => handleDeleteFriends(e, dogFriend.id)}
+                    >
+                      ❌
+                    </button>
+                  </div>
                 ))}
               </ul>
             ) : null}
-            </div>
+          </div>
           <button id="save" type="submit">
             Save
           </button>
