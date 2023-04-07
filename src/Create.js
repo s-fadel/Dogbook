@@ -6,6 +6,7 @@ const Create = ({ setView, setDogs, dog, dogs }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [presentVal, setPresentVal] = useState(false);
   const [dogFriends, setDogFriends] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("defaultOption")
 
   const fetchDog = async () => {
     setIsLoading(true);
@@ -17,7 +18,7 @@ const Create = ({ setView, setDogs, dog, dogs }) => {
 
   useEffect(() => {
     fetchDog();
-  }, []); 
+  }, []);
 
   const saveDog = (event) => {
     event.preventDefault();
@@ -32,26 +33,41 @@ const Create = ({ setView, setDogs, dog, dogs }) => {
       ...prev,
       { img, nickname, name, age, bio, present, friends, id: uuidv4() },
     ]);
-    setDogImg(""); 
-    setDogFriends([]); 
-    event.target.reset(); 
+    setDogImg("");
+    setDogFriends([]);
+    event.target.reset();
     setView("HOME");
   };
 
   const selectDogFriend = (event) => {
     const selectedDogId = event.target.value;
 
-    const dogFriendAlreadyExist = dogFriends.some((dogFriend) => dogFriend.id === selectedDogId);
+    setSelectedOption(selectedDogId);
+
+    const dogFriendAlreadyExist = dogFriends.some(
+      (dogFriend) => dogFriend.id === selectedDogId
+    );
     if (!dogFriendAlreadyExist) {
       const dogFriend = dogs.find((dog) => dog.id === selectedDogId);
-     dogFriend && setDogFriends((prev) => [...prev, { id: selectedDogId, nickname: dogFriend.nickname } ])
-
+      dogFriend &&
+        setDogFriends((prev) => [
+          ...prev,
+          { id: selectedDogId, nickname: dogFriend.nickname },
+        ]);
     }
   };
 
+  const handleDeleteFriends = (e, id) => {
+    e.preventDefault();
+    const updatedDogFriends = dogFriends.filter((friend) => friend.id !== id);
+    setDogFriends(updatedDogFriends);
+    setSelectedOption("defaultOption")
+  };
+  
+
   return (
     <div>
-      <h1 className="title-new-member">DOG SCHOOL🐶🏫</h1>
+      <h1 className="title-new-member"> CREATE DOG🐶🏫</h1>
       <h4>ADD NEW DOG MEMBER👩🏻‍💻✅</h4>
       <div className="form-daycare">
         <form className="form-create-dog" onSubmit={saveDog}>
@@ -75,18 +91,30 @@ const Create = ({ setView, setDogs, dog, dogs }) => {
           </div>
           <div className="friends-dog">
             <h5>Add a dog friend:</h5>
-            <select id="friend-dog" onChange={(event) => selectDogFriend(event)}>
-            <option>Select a friend</option>
+            <select
+              id="friend-dog"
+              onChange={(event) => selectDogFriend(event)}
+              value={selectedOption}
+            >
+              <option value="defaultOption">Select a friend</option>
               {dogs.map((dog) => (
                 <option key={dog.id} value={dog.id}>
-                {dog.nickname}
+                  {dog.nickname}
                 </option>
               ))}
             </select>
             {dogFriends.length > 0 ? (
               <ul>
                 {dogFriends.map((dogFriend) => (
-                  <li key={dogFriend.id}>{dogFriend.nickname}</li>
+                  <div className="dog-container-friends" key={dogFriend.id}>
+                    <li key={dogFriend.id}>{dogFriend.nickname}</li>
+                    <button
+                      className="delete-button-friends"
+                      onClick={(e) => handleDeleteFriends(e, dogFriend.id)}
+                    >
+                      ❌
+                    </button>
+                  </div>
                 ))}
               </ul>
             ) : null}

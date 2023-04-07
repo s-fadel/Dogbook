@@ -17,10 +17,10 @@ const Start = ({ setView, dogs, setDogs, setSelectedDog }) => {
   }
   return (
     <div className="dog-school">
-            <h1 className="title-new-member">DOG SCHOOL🐶🏫</h1>
-      <p>Welcome to the dog mafia! Add a new dog member or check in a current dog.</p>
+            <h1 className="title-new-member">FURRY FRIENDS SCHOOL🐶🏫</h1>
+      <p>Pawfect Match: Här skapar lägger du till din hund och matchar den med nya vänner på dagiset.</p>
       <div className="dog-list">
-        <h4>DOGS OF THE DAY: {dogs.length}</h4>
+        <h4>FURRY FRIENDS OF THE DAY: {dogs.length}</h4>
         {dogs.map((dog) => (
           <div className="dog-container" key={dog.id}>
             <span
@@ -43,7 +43,7 @@ const Start = ({ setView, dogs, setDogs, setSelectedDog }) => {
         ))}
       </div>
       <div className="create-new-member">
-        <p>New member to the dog mafia?</p>
+        <p>New pawfect match? Add your dog</p>
         <button onClick={() => setView("CREATE")} id="add-dog">
           Create
         </button>

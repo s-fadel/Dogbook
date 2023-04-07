@@ -4,6 +4,7 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
   const { name, nickname, age, bio, img, present, friends, id } = selectedDog;
   const [presentVal, setPresentVal] = useState(present);
   const [dogFriends, setDogFriends] = useState(friends);
+  const [selectedOption, setSelectedOption] = useState("defaultOption")
 
   const editDog = (event) => {
     event.preventDefault();
@@ -25,6 +26,8 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
   const selectDogFriend = (event) => {
     const selectedDogId = event.target.value;
 
+    setSelectedOption(selectedDogId);
+
     const dogFriendAlreadyExist = dogFriends.some(
       (dogFriend) => dogFriend.id === selectedDogId
     );
@@ -42,8 +45,9 @@ const Edit = ({ setView, selectedDog, setDogs, dogs }) => {
     e.preventDefault();
     const updatedDogFriends = dogFriends.filter((friend) => friend.id !== id);
     setDogFriends(updatedDogFriends);
+    setSelectedOption("defaultOption")
   };
-console.log(dogFriends);
+
   return (
     <div>
       <h1 className="title-new-member">EDIT DOG PROFILE 📝</h1>
@@ -89,8 +93,9 @@ console.log(dogFriends);
             <select
               id="friend-dog"
               onChange={(event) => selectDogFriend(event)}
+              value={selectedOption}
             >
-              <option>Select a friend</option>
+              <option value="defaultOption">Select a friend</option>
               {dogs
                 .filter((dog) => dog.id !== id)
                 .map((dog) => (
@@ -102,10 +107,10 @@ console.log(dogFriends);
             {dogFriends.length > 0 ? (
               <ul>
                 {dogFriends.map((dogFriend) => (
-                  <div className="dog-container" key={dogFriend.id}>
+                  <div className="dog-container-friends" key={dogFriend.id}>
                     <li key={dogFriend.id}>{dogFriend.nickname}</li>
                     <button
-                      className="delete-button"
+                      className="delete-button-friends"
                       onClick={(e) => handleDeleteFriends(e, dogFriend.id)}
                     >
                       ❌
